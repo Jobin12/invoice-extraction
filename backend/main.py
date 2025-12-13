@@ -120,6 +120,7 @@ async def extract_invoice_data(file: UploadFile = File(...)):
             json_response = {"raw_text_output": raw_text}
 
         # Save raw response
+        os.makedirs("responses", exist_ok=True)
         filename = f"responses/{file.filename}.json"
         with open(filename, "w") as f:
             json.dump(json_response, f, indent=4, ensure_ascii=False)
