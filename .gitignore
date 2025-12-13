@@ -1,0 +1,19 @@
+# Environment variables
+.env
+backend/.env
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.py[cod]
+
+# Output/Generated files
+backend/responses/
+dist/
+build/
+*.pdf
+parsed_output.json
+
+# OS files
+.DS_Store

@@ -1,0 +1,457 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #6366f1;
+  /* Indigo 500 */
+  --primary-dark: #4f46e5;
+  --secondary: #8b5cf6;
+  /* Violet 500 */
+  --accent: #ec4899;
+  /* Pink 500 */
+
+  --bg-surface: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-main);
+  background: #f8fafc;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 96%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 96%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 96%, 1) 0, transparent 50%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Dynamic Background Blob */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.05) 30%, transparent 70%);
+  animation: pulse 15s ease-in-out infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+#root {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+/* H1 Title with Gradient */
+h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleFade 0.8s ease-out;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 3.5rem;
+  font-weight: 500;
+  opacity: 0.9;
+  letter-spacing: -0.01em;
+}
+
+/* Upload Area - Glassmorphism */
+.upload-area {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 2px dashed #cbd5e1;
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  text-align: center;
+  margin: 0 auto 2.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  max-width: 650px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.upload-area:hover,
+.upload-area.drag-active {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.1), 0 8px 10px -6px rgba(99, 102, 241, 0.1);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: block;
+  opacity: 0.8;
+  transition: transform 0.3s ease;
+}
+
+.upload-area:hover .upload-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Main Button */
+button {
+  border-radius: 12px;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+button:hover::after {
+  opacity: 1;
+}
+
+button:disabled {
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spinner {
+  border: 3px solid rgba(99, 102, 241, 0.1);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border-left-color: var(--primary);
+  animation: spin 0.8s ease-in-out infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.8rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error Box */
+.status-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  color: #b91c1c;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* INVOICE DISPLAY - The "Magic" Document */
+.invoice-display {
+  background: rgba(255, 255, 255, 0.85);
+  /* More transparent */
+  backdrop-filter: blur(16px);
+  /* Strong glass effect */
+  border-radius: 16px;
+  padding: 4rem;
+  margin-top: 4rem;
+  text-align: left;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  animation: floatUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  /* Glass border */
+}
+
+.invoice-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid var(--surface-color);
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+}
+
+.invoice-title h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-family: 'Outfit', sans-serif;
+}
+
+.invoice-date {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Entities Grid */
+.entities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.entity-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.entity-name {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.entity-name-ar {
+  font-family: 'Tahoma', sans-serif;
+  color: var(--text-muted);
+  direction: rtl;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.entity-content p {
+  margin: 0.35rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Modern Line Items Table */
+.table-container {
+  margin-bottom: 3rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-table th {
+  background: #f1f5f9;
+  text-align: left;
+  padding: 1.25rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.invoice-table td {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--surface-color);
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.invoice-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Totals Section */
+.totals-section {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-left: auto;
+  width: 100%;
+  max-width: 320px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.total-label {
+  color: var(--text-muted);
+}
+
+.total-value {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.grand-total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed #e2e8f0;
+  color: var(--primary-dark);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+/* Bank Details */
+.bank-details {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.bank-details h3 {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0;
+}
+
+.bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.value-sm {
+  font-family: 'Outfit', monospace;
+  font-size: 1rem;
+  color: var(--text-main);
+  background: #f1f5f9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .entities-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .invoice-display {
+    padding: 2rem;
+  }
+
+  .totals-section {
+    max-width: 100%;
+  }
+}
