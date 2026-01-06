@@ -1,0 +1,41 @@
+{
+    "invoice_number": "1867",
+    "invoice_date": "2025-10-21",
+    "due_date": null,
+    "seller": {
+        "name_english": "Grand Information Trading Co.",
+        "name_arabic": "شركة المعلومات الكبرى التجارية",
+        "address": "P.O.Box 295825, Riyadh 11393, Olaya Computer Market, Al-Nakhla Building, Opp. Holiday in Hotel",
+        "vat_number": "311344436300003",
+        "cr_number": "1010676542"
+    },
+    "buyer": {
+        "name": "HAMZAT WASL COMMUNICATION AND INFORMATIOI",
+        "address": "PB No: 13215, ZIP: 13215, Street Name: Mohammed Bin Naseef, District: King Fahad Dist, Building No.: 6934, Additional No.: 3005",
+        "vat_number": "310437575300003"
+    },
+    "line_items": [
+        {
+            "description": "SSD Kingston NVME SNV3S/2000G 2TB SSD KINGSTON NVME 2280-SNV3S/2000G 2TB GC390-21-10-2025",
+            "quantity": "1.00",
+            "unit_price": "415.00",
+            "total": "415.00"
+        },
+        {
+            "description": "SSD Sandisk Ext 2TB SDSSDE61-2T00-G25 SSD SANDISK EXT 2TB SDSSDE61-2T00-G25 25363R402498-GC402-08-10-2025",
+            "quantity": "1.00",
+            "unit_price": "540.00",
+            "total": "540.00"
+        }
+    ],
+    "totals": {
+        "subtotal": "955.00",
+        "vat_amount": "143.25",
+        "grand_total": "1,098.25"
+    },
+    "bank_details": {
+        "bank_name": null,
+        "account_number": null,
+        "iban": null
+    }
+}

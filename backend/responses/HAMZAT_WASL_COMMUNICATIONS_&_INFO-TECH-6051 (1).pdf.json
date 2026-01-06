@@ -1,0 +1,35 @@
+{
+    "invoice_number": "6051",
+    "invoice_date": "2025-08-14",
+    "due_date": "2025-08-24",
+    "seller": {
+        "name_english": "WAVES TELECOM & TECHNOLOGY TRADING EST",
+        "name_arabic": "مؤسسة موجات الاتصالات التقنية التجارية",
+        "address": "5227 Al Rabay, 8177 Al Khobar, Al Janubiyah Dist. 34249, Saudi Arabia",
+        "vat_number": "311090027200003",
+        "cr_number": "2051063124"
+    },
+    "buyer": {
+        "name": "HAMZAT WASL COMMUNICATIONS & INFO-TECH",
+        "address": "7062, Haroon Al Rasheed Street, Riyadh 14262 1 Saudi Arabia",
+        "vat_number": "310437575300003"
+    },
+    "line_items": [
+        {
+            "description": "SP87ZZ12ZZ RCAA XGS 87 Standard Protection - 12 MOS - Renewal S/N: X01125Q3Y6MHX9",
+            "quantity": "1.00",
+            "unit_price": "724.00",
+            "total": "724.00"
+        }
+    ],
+    "totals": {
+        "subtotal": "724.00",
+        "vat_amount": "108.60",
+        "grand_total": "832.60"
+    },
+    "bank_details": {
+        "bank_name": "NCB (National Commercial Bank)",
+        "account_number": "08667817000108",
+        "iban": null
+    }
+}
