@@ -112,6 +112,103 @@ const InvoiceDataDisplay = ({ data }) => {
                 </div>
             )}
 
+            {/* Zoho Integration Section */}
+            <ZohoIntegration data={data} />
+        </div>
+    );
+};
+
+const ZohoIntegration = ({ data }) => {
+    const [customerName, setCustomerName] = React.useState('');
+    const [status, setStatus] = React.useState('idle'); // idle, loading, success, error
+    const [message, setMessage] = React.useState('');
+
+    const handleCreateInvoice = async () => {
+        if (!customerName.trim()) {
+            setStatus('error');
+            setMessage('Please enter a customer name.');
+            return;
+        }
+
+        setStatus('loading');
+        setMessage('Creating invoice in Zoho Books...');
+
+        try {
+            const response = await fetch('http://localhost:8000/zoho/create-invoice', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    customer_name: customerName,
+                    invoice_data: data
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.detail || 'Failed to create invoice');
+            }
+
+            setStatus('success');
+            setMessage(`Invoice created successfully! ID: ${result.invoice.invoice_id}`);
+        } catch (error) {
+            setStatus('error');
+            setMessage(error.message);
+        }
+    };
+
+    return (
+        <div className="zoho-integration-card" style={{ marginTop: '20px', padding: '20px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '15px' }}>🚀 Zoho Books Integration</h3>
+
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <input
+                    type="text"
+                    placeholder="Enter Zoho Customer Name"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    style={{
+                        flex: 1,
+                        padding: '10px',
+                        borderRadius: '6px',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        background: 'rgba(0,0,0,0.2)',
+                        color: 'white'
+                    }}
+                />
+                <button
+                    onClick={handleCreateInvoice}
+                    disabled={status === 'loading'}
+                    style={{
+                        padding: '10px 20px',
+                        borderRadius: '6px',
+                        border: 'none',
+                        background: 'linear-gradient(135deg, #00C6FF 0%, #0072FF 100%)',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+                        opacity: status === 'loading' ? 0.7 : 1
+                    }}
+                >
+                    {status === 'loading' ? 'Creating...' : 'Create Invoice'}
+                </button>
+            </div>
+
+            {message && (
+                <div style={{
+                    marginTop: '15px',
+                    padding: '10px',
+                    borderRadius: '6px',
+                    background: status === 'error' ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 255, 0, 0.1)',
+                    border: `1px solid ${status === 'error' ? 'rgba(255, 0, 0, 0.3)' : 'rgba(0, 255, 0, 0.3)'}`,
+                    color: status === 'error' ? '#ff6b6b' : '#51cf66',
+                    fontSize: '0.9em'
+                }}>
+                    {status === 'error' ? '❌' : '✅'} {message}
+                </div>
+            )}
         </div>
     );
 };

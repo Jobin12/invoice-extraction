@@ -61,8 +61,8 @@ async def extract_invoice_data(file: UploadFile = File(...)):
         REQUIRED JSON SCHEMA:
         {
             "invoice_number": "string",
-            "invoice_date": "string",
-            "due_date": "string",
+            "invoice_date": "string (YYYY-MM-DD)",
+            "due_date": "string (YYYY-MM-DD)",
             "seller": {
                 "name_english": "string",
                 "name_arabic": "string",
@@ -134,6 +134,34 @@ async def extract_invoice_data(file: UploadFile = File(...)):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+from zoho_client import ZohoClient
+from pydantic import BaseModel
+
+class ZohoInvoiceRequest(BaseModel):
+    customer_name: str
+    invoice_data: dict
+
+@app.post("/zoho/create-invoice")
+async def create_zoho_invoice(request: ZohoInvoiceRequest):
+    try:
+        zoho = ZohoClient()
+        customer_id = zoho.search_customer(request.customer_name)
+        
+        if not customer_id:
+            raise HTTPException(status_code=404, detail=f"Customer '{request.customer_name}' not found in Zoho Books.")
+            
+        result = zoho.create_invoice(request.invoice_data, customer_id)
+        
+        if "error" in result:
+             raise HTTPException(status_code=400, detail=result["error"])
+             
+        return result
+        
+    except Exception as e:
+        print(f"Zoho Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     import uvicorn
